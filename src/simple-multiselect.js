@@ -52,7 +52,7 @@ var utils = {
 
 var s = function(select, userOpts) {
   var defaultsOpts = {
-    itemTpl: false,
+    groups: false,
     itemTpl: false,
     submitBtn: true,
     placeholder: 'Select',
@@ -78,18 +78,22 @@ var s = function(select, userOpts) {
   newHtml += '<div class="top-select"><span>' + options.placeholder + '</span></div>'
 
   newHtml += '<div class="simple-multiselect-items">'
-  selectOptions.forEach(function(newOpt) {
-    newHtml += '<div class="item-multiselect">'
-    newHtml += '<input type="checkbox" data-name="' + newOpt.name +'" value="' + newOpt.value + '" name="item-' + newOpt.value + '">'
-    if(options.itemTpl) {
-      newHtml += '<label for="item-' + newOpt.value + '">' + options.itemTpl + '</label>'
-    } else {
-      newHtml += '<label for="item-' + newOpt.value + '"></label>'
-    }
-    newHtml += '</div>'
-  })
-  newHtml += '</div>'
 
+  // Template for groups
+  if(options.groups) {
+    select.querySelectorAll('optgroup').forEach(function(group) {
+      newHtml += '<div class="simple-multiselect-group">' + group.getAttribute('label') + '</div>'
+      group.querySelectorAll('option').forEach(function(item) {
+        newHtml += getSingleItemHtml(item)
+      })
+    })
+  } else {
+    // Template for items
+    select.querySelectorAll('option').forEach(function(item) {
+      newHtml += getSingleItemHtml(item)
+    })
+  }
+  newHtml += '</div>'
   newHtml += '</div>'
 
   // Append new Select and hide old
@@ -152,6 +156,24 @@ var s = function(select, userOpts) {
     }
 
     newSelect.querySelectorAll('.top-select span')[0].textContent = newPlaceholder
+  }
+
+  function getSingleItemHtml(item) {
+    var html = ''
+
+    var name = item.textContent
+    var value = item.getAttribute('value')
+
+    html += '<div class="item-multiselect">'
+    html += '<input type="checkbox" data-name="' + name +'" value="' + value + '" name="item-' + value + '">'
+    if(options.itemTpl) {
+      html += '<label for="item-' + value + '">' + options.itemTpl + '</label>'
+    } else {
+      html += '<label for="item-' + value + '"></label>'
+    }
+    html += '</div>'
+
+    return html
   }
 }
 

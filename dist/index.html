@@ -5,23 +5,39 @@
     <title>Simple Multiselect</title>
   </head>
   <body>
-    <select name="test" id="test">
-      <option value="1">Citroen</option>
-      <option value="2">Hyundai</option>
-      <option value="3">Mercedes</option>
-      <option value="4">Renault</option>
-      <option value="5">Mazda</option>
+    <select name="cars" id="cars">
+      <optgroup label="Maricas">
+        <option value="2">Hyundai</option>
+        <option value="4">Renault</option>
+        <option value="1">Citroen</option>
+      </optgroup>
+      <optgroup label="Machos">
+        <option value="3">Mercedes</option>
+        <option value="5">Mazda</option>
+      </optgroup>
+    </select>
+
+    <select name="bikes" id="bikes">
+      <option value="1">Suzuki</option>
+      <option value="2">Honda</option>
     </select>
   </body>
 
   <script type="text/javascript" src="../src/simple-multiselect.js"></script>
   <script type="text/javascript">
-    var select = document.getElementById('test')
-    new SimpleMultiselect(select, {
-      submitBtn: true,
+    new SimpleMultiselect(document.getElementById('cars'), {
+      groups: true,
+      itemTpl: 'Prueba',
       maxPlaceholdersValues: 3,
-      hiddenInputName: 'inputFtw',
+      hiddenInputName: 'CARS',
       placeholder: 'Seleccione una marca'
+    })
+
+    new SimpleMultiselect(document.getElementById('bikes'), {
+      itemTpl: 'motos',
+      maxPlaceholdersValues: 3,
+      hiddenInputName: 'BIKES',
+      placeholder: 'Seleccione una moto'
     })
   </script>
 </html>
