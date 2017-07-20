@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Simple Multiselect</title>
+  </head>
+  <body>
+    <select name="test" id="test">
+      <option value="1">Citroen</option>
+      <option value="2">Hyundai</option>
+      <option value="3">Mercedes</option>
+      <option value="4">Renault</option>
+      <option value="5">Mazda</option>
+    </select>
+  </body>
+
+  <script type="text/javascript" src="../src/simple-multiselect.js"></script>
+  <script type="text/javascript">
+    var select = document.getElementById('test')
+    new SimpleMultiselect(select, {
+      submitBtn: true,
+      maxPlaceholdersValues: 3,
+      hiddenInputName: 'inputFtw',
+      placeholder: 'Seleccione una marca'
+    })
+  </script>
+</html>
